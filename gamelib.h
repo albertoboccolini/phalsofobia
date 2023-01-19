@@ -1,6 +1,6 @@
 void imposta_gioco();
 void gioca();
-//void termina_gioco();
+void termina_gioco();
 
 enum Tipo_oggetto_inziale
 {
