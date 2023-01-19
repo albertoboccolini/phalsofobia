@@ -6,7 +6,7 @@ int gIndex;
 
 void menu()
 {
-  system("clear");
+  //system("clear");
   printf("-----------------------------------------------------------\n");
   printf("| Benvenuto in Phalsofobia, un gioco di Alberto Boccolini |\n");
   printf("-----------------------------------------------------------\n");
