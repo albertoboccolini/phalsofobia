@@ -1,4 +1,4 @@
-# PhalsoPhobia: Un gioco in C
+# PhalsoPhobia: By Alberto Boccolini
 
 ## Getting Started
 
