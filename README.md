@@ -1,5 +1,28 @@
 # PhalsoPhobia: Un gioco in C
-Scelte progettuali:
+
+## Getting Started
+
+1. Clone this repository.
+
+2. Navigate to this folder with terminal
+
+```bash
+   $ cd phalsofobia
+```
+
+3. Compile main.c and gamelib.c with this command
+
+```bash
+   $ gcc -o phalsofobia main.c gamelib.c -std=c11 -Wall
+```
+
+4. Start the game and have fun
+
+```bash
+   $ ./phalsofobia
+```
+
+## Design choices
 1) Aggiunta funzione impostazioneGioco() per dividere la sezione effettiva delle impostazioni dalla funzione imposta_gioco() che in caso di ripetizione della partita, mostra il menù comunicando all'utente che la partita era già stata impostata in precedenza e chiama le opportune funzioni: impostazioneGioco() per la modifica delle impostazioni, gioca() per l'avvio della partita.
 2) Aggiunta funzione convertiOggetto() che semplicemente prende in input l'intero assegnato agli oggetti e alle prove e ne stampa la stringa corrispettiva, questo per far fronte al problema dei tipi enum, per la quale non è possibile stampare gli oggetti o le prove, sostituendo %d con %s o %c.
 3) Aggiunta funzione convertiZona() che semplicemente prende in input l'intero assegnato alle zone ne stampa la stringa corrispettiva, questo per far fronte al problema dei tipi enum, per la quale non è possibile stampare le zone, sostituendo %d con %s o %c.
