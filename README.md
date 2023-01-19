@@ -1,14 +1,4 @@
 # PhalsoPhobia: Un gioco in C
-Template progetto finale Programmazione Procedurale con Laboratorio a.a. 2022/2023.
-
-Aggiungere a questo README eventuali estensioni al progetto assegnato, e scelte progettuali da comunicare.
-
-Nome: Alberto
-
-Cognome: Boccolini
-
-Matricola: 355727
-
 Scelte progettuali:
 1) Aggiunta funzione impostazioneGioco() per dividere la sezione effettiva delle impostazioni dalla funzione imposta_gioco() che in caso di ripetizione della partita, mostra il menù comunicando all'utente che la partita era già stata impostata in precedenza e chiama le opportune funzioni: impostazioneGioco() per la modifica delle impostazioni, gioca() per l'avvio della partita.
 2) Aggiunta funzione convertiOggetto() che semplicemente prende in input l'intero assegnato agli oggetti e alle prove e ne stampa la stringa corrispettiva, questo per far fronte al problema dei tipi enum, per la quale non è possibile stampare gli oggetti o le prove, sostituendo %d con %s o %c.
