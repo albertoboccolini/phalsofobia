@@ -31,6 +31,7 @@ static int gMorte;                           // variabile che viene impostata ad
 static int gSale;                            // variabile che si aggiorna quando viene utilizzato l'oggetto sale
 static int gMatrice[5][4];                   // matrice che contiene tutti gli zaini dei giocatori precedenti
 static char gNomiGiocatoriPrecedenti[5][50]; // matrice che contiene tutti i nomi dei giocatori precedenti
+static int gTurnoIniziale[5];
 
 static void perso()
 {
@@ -798,6 +799,7 @@ void impostazioneGioco()
 
   for (int count1 = nGiocatori; count1 > 0; count1--)
   {
+    gTurnoIniziale[count1] = controllo[count1];
     gNGiocatori = nGiocatori; // copio il numero di giocatori nella variabile globale corrispondente
     /* copio la variabile globale gNGiocatori in gNGiocatoriPrecedenti,
     poiché nel corso della partita gNGiocatori potrebbe essere decrementata*/
@@ -815,7 +817,14 @@ void impostazioneGioco()
         gPGiocatori[controllo[count1]]->zaino[count2] = lOggettoIniziale;
         printf("\n");
         convertiOggetto(lOggettoIniziale);
-        printf(" inserito nello zaino, sarà il tuo oggetto iniziale\n");
+        if (lOggettoIniziale == videocamera)
+        {
+          printf(" inserita nello zaino, sarà il tuo oggetto iniziale\n");
+        }
+        else
+        {
+          printf(" inserito nello zaino, sarà il tuo oggetto iniziale\n");
+        }
       }
       else
       {
@@ -912,10 +921,11 @@ void imposta_gioco()
         gPGiocatori[count1] = realloc(gPGiocatori[count1], sizeof(Giocatore));         // re-alloco tutte le strutture giocatore
         gPGiocatori[count1] = gPGiocatoriPrecedenti[count1];                           // copio i campi dei giocatori precedenti nei giocatori attuali
         strcpy(gPGiocatori[count1]->nome_giocatore, gNomiGiocatoriPrecedenti[count1]); // copio il nome del giocatore precedente in quello attuale
-        for (int count2 = 0; count2 < 4; count2++)
-        {
-          gPGiocatori[count1]->zaino[count2] = gMatrice[count1][count2]; // copio gli oggetti di ogni zaino contenuto nella matrice nello zaino di ogni giocatore
-        }
+        if (gPGiocatori[count1] == gPGiocatori[gTurnoIniziale[count1]])
+          for (int count2 = 0; count2 < 4; count2++)
+          {
+            gPGiocatori[count1]->zaino[count2] = gMatrice[count1][count2]; // copio gli oggetti di ogni zaino contenuto nella matrice nello zaino di ogni giocatore
+          }
       }
       gioca();
       break;
@@ -933,26 +943,36 @@ static void vittoria()
   {
     printf("\n");
     system("clear");
-    printf("---------------\n");
-    printf("| Hai vinto!! |\n");
-    printf("---------------\n");
+    printf("   _   _      _         _       _          \n");
+    printf("  | | | |__ _(_) __   _(_)_ ___| |_ ____   \n");
+    printf("  | |_| | _` | | | | | | | '_  | __| _  |  \n");
+    printf("  |  _  |(_| | |  | | || | | | | | |(_) |  \n");
+    printf("  |_| |_|__,_|_|   |_| |_|_| |_|___|____|  \n");
+    printf("-------------------------------------------\n");
+    printf("| hai trovato tutte e 3 le prove, bravo!! |\n");
+    printf("-------------------------------------------\n");
   }
   else
   {
     printf("\n");
     system("clear");
-    printf("-----------------\n");
-    printf("| Avete vinto!! |\n");
-    printf("-----------------\n");
+    printf("  _____             _                _       _         \n");
+    printf(" |  _  |__   ______| |_ ____  __   _(_)_ ___| |_ ____  \n");
+    printf(" | |_| || | | | _  | __| _  | | | | | | '_  | __| _  | \n");
+    printf(" | __  | | | || ___| | |  __|  | | || | | | | | |(_) | \n");
+    printf(" |_| |_|  |_| |____|___|____|   |_| |_|_| |_|___|____| \n");
+    printf("--------------------------------------------------------\n");
+    printf("|   avete trovato tutte le prove necessarie, bravi!!   |\n");
+    printf("--------------------------------------------------------\n");
   }
   char lIndex;
-  printf("\nPremi invio per tornare al menù: ");
+  printf("\nPremi invio per tornare al menù principale: ");
   freopen(NULL, "rb", stdin);
   scanf("%c", &lIndex);
   while (lIndex != '\n')
   {
     printf("Errore:\nCarattere errato\n");
-    printf("\nPremi invio per tornare al menù: ");
+    printf("\nPremi invio per tornare al menù principale: ");
     freopen(NULL, "rb", stdin);
     scanf("%c", &lIndex);
   }
@@ -1849,6 +1869,7 @@ void gioca()
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);
       }
+      return;
     }
     else
     {
