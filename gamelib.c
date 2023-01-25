@@ -403,7 +403,7 @@ static void inserisciZona()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -422,7 +422,7 @@ static void inserisciZona()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -445,7 +445,7 @@ static void cancellaZone()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -475,7 +475,7 @@ static void cancellaZone()
     {
       printf("\n");
       freopen(NULL, "rb", stdin);
-      printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù\n");
+      printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù.\n");
       printf("\nInserisci numero zona da eliminare (0 per tornare al menù mappa): ");
       lControllo = scanf("%d", &zonaDaEliminare);
     }
@@ -505,7 +505,7 @@ static void cancellaZone()
       scanf("%c", &lIndex);
       while (lIndex != '\n')
       {
-        printf("Errore:\nCarattere errato\n");
+        printf("Errore:\nCarattere errato.\n");
         printf("\nPremi invio per tornare al menù mappa: ");
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);
@@ -529,7 +529,7 @@ static void stampaMappa()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -556,7 +556,7 @@ static void stampaMappa()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -579,7 +579,7 @@ static void chiudiMappa()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù mappa: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -615,7 +615,7 @@ static void menuMappa()
   {
     printf("\n");
     freopen(NULL, "rb", stdin);
-    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù\n");
+    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù.\n");
     printf("\nInserisci: ");
     lControlloInt = scanf("%d", &lIndex);
   }
@@ -654,7 +654,7 @@ static void menuFinale()
   {
     printf("\n");
     freopen(NULL, "rb", stdin);
-    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù\n");
+    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù.\n");
     printf("\nInserisci: ");
     lControlloInt = scanf("%d", &lIndex);
   }
@@ -701,7 +701,7 @@ void impostazioneGioco()
   {
     printf("\n");
     freopen(NULL, "rb", stdin);
-    printf("Errore:\nCarattere non valido, impossibile impostare una partita\n");
+    printf("Errore:\nCarattere non valido, impossibile impostare una partita.\n");
     printf("Numero giocatori, da 1 a 4: ");
     lControlloInt = scanf("%d", &nGiocatori);
   }
@@ -713,19 +713,36 @@ void impostazioneGioco()
     e posiziono i puntatori nell'array*/
     gPGiocatori[count] = realloc(gPGiocatori[count], sizeof(Giocatore));
     gPGiocatoriPrecedenti[count] = realloc(gPGiocatoriPrecedenti[count], sizeof(Giocatore));
-    freopen(NULL, "rb", stdin);
     char nomeGiocatore[50];
-    printf("Nome Giocatore %d: ", count + 1);
-    fgets(nomeGiocatore, 50, stdin);
-    // controllo che il primo carattere non sia vuoto o che l'utente abbia premuto invio
-    while (nomeGiocatore[0] == '\n' || nomeGiocatore[0] == ' ')
+    int lDuplicati;
+    do
     {
-      printf("Errore:\nIl nome del giocatore non può essere vuoto\n");
-      printf("Nome Giocatore %d: ", count + 1);
+      lDuplicati = 0;
       freopen(NULL, "rb", stdin);
+      printf("Nome Giocatore %d: ", count + 1);
       fgets(nomeGiocatore, 50, stdin);
-    }
-    nomeGiocatore[strlen(nomeGiocatore) - 1] = '\0'; // serve a pulire la stringa
+      // controllo che il primo carattere non sia vuoto o che l'utente abbia premuto invio
+      while (nomeGiocatore[0] == '\n' || nomeGiocatore[0] == ' ')
+      {
+        printf("Errore:\nIl nome del giocatore non può essere vuoto.\n");
+        printf("Nome Giocatore %d: ", count + 1);
+        freopen(NULL, "rb", stdin);
+        fgets(nomeGiocatore, 50, stdin);
+      }
+      nomeGiocatore[strlen(nomeGiocatore) - 1] = '\0'; // serve a pulire la stringa
+      if (count != 0)
+      {
+        for (int lCount = 0; lCount < count; lCount++)
+        {
+          if (strcmp(nomeGiocatore, gPGiocatori[lCount]->nome_giocatore) == 0)
+          {
+            lDuplicati = 1;
+            printf("Errore:\nnome giocatore già esistente.\n");
+            break;
+          }
+        }
+      }
+    } while (lDuplicati == 1);
     strcpy(gPGiocatori[count]->nome_giocatore, nomeGiocatore);
     strcpy(gNomiGiocatoriPrecedenti[count], nomeGiocatore); // copio il nome del giocatore nella matrice contenente i nomi dei giocatori precedenti
     gPGiocatori[count]->sanita_mentale = 100;
@@ -905,7 +922,7 @@ void imposta_gioco()
     {
       printf("\n");
       freopen(NULL, "rb", stdin);
-      printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù\n\n");
+      printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù.\n\n");
       printf("\nInserisci: ");
       lControlloInt = scanf("%d", &lIndex);
     }
@@ -971,7 +988,7 @@ static void vittoria()
   scanf("%c", &lIndex);
   while (lIndex != '\n')
   {
-    printf("Errore:\nCarattere errato\n");
+    printf("Errore:\nCarattere errato.\n");
     printf("\nPremi invio per tornare al menù principale: ");
     freopen(NULL, "rb", stdin);
     scanf("%c", &lIndex);
@@ -1149,7 +1166,7 @@ static void tornaCaravan(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare alla zona di partenza: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1177,7 +1194,7 @@ static void tornaCaravan(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1212,7 +1229,7 @@ static void stampaGiocatore(Giocatore *giocatore)
   scanf("%c", &lIndex);
   while (lIndex != '\n')
   {
-    printf("Errore:\nCarattere errato\n");
+    printf("Errore:\nCarattere errato.\n");
     printf("\nPremi invio per tornare al menù: ");
     freopen(NULL, "rb", stdin);
     scanf("%c", &lIndex);
@@ -1243,7 +1260,7 @@ static void stampaZona(Zona_mappa *zonaMappa)
   scanf("%c", &lIndex);
   while (lIndex != '\n')
   {
-    printf("Errore:\nCarattere errato\n");
+    printf("Errore:\nCarattere errato.\n");
     printf("\nPremi invio per tornare al menù: ");
     freopen(NULL, "rb", stdin);
     scanf("%c", &lIndex);
@@ -1286,7 +1303,7 @@ static void avanza(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1296,14 +1313,14 @@ static void avanza(Giocatore *giocatore, Zona_mappa *zonaMappa)
   else
   {
     printf("\n");
-    printf("Errore:\nSei già avanzato in questo turno\n");
+    printf("Errore:\nSei già avanzato in questo turno.\n");
     char lIndex;
     printf("\nPremi invio per tornare al menù: ");
     freopen(NULL, "rb", stdin);
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1329,7 +1346,7 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
       scanf("%c", &lIndex);
       while (lIndex != '\n')
       {
-        printf("Errore:\nCarattere errato\n");
+        printf("Errore:\nCarattere errato.\n");
         printf("\nPremi invio per continuare: ");
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);
@@ -1397,7 +1414,7 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
         scanf("%c", &lIndex);
         while (lIndex != '\n')
         {
-          printf("Errore:\nCarattere errato\n");
+          printf("Errore:\nCarattere errato.\n");
           printf("\nPremi invio per continuare: ");
           freopen(NULL, "rb", stdin);
           scanf("%c", &lIndex);
@@ -1429,7 +1446,7 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
         scanf("%c", &lIndex);
         while (lIndex != '\n')
         {
-          printf("Errore:\nCarattere errato\n");
+          printf("Errore:\nCarattere errato.\n");
           printf("\nPremi invio per continuare: ");
           freopen(NULL, "rb", stdin);
           scanf("%c", &lIndex);
@@ -1448,7 +1465,7 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
         scanf("%c", &lIndex);
         while (lIndex != '\n')
         {
-          printf("Errore:\nCarattere errato\n");
+          printf("Errore:\nCarattere errato.\n");
           printf("\nPremi invio per continuare: ");
           freopen(NULL, "rb", stdin);
           scanf("%c", &lIndex);
@@ -1470,7 +1487,7 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1494,7 +1511,7 @@ static void raccogliOggetto(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per continuare: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1520,7 +1537,7 @@ static void raccogliOggetto(Giocatore *giocatore, Zona_mappa *zonaMappa)
         scanf("%c", &lIndex);
         while (lIndex != '\n')
         {
-          printf("Errore:\nCarattere errato\n");
+          printf("Errore:\nCarattere errato.\n");
           printf("\nPremi invio per continuare: ");
           freopen(NULL, "rb", stdin);
           scanf("%c", &lIndex);
@@ -1541,7 +1558,7 @@ static void raccogliOggetto(Giocatore *giocatore, Zona_mappa *zonaMappa)
       scanf("%c", &lIndex);
       while (lIndex != '\n')
       {
-        printf("Errore:\nCarattere errato\n");
+        printf("Errore:\nCarattere errato.\n");
         printf("\nPremi invio per continuare: ");
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);
@@ -1708,7 +1725,7 @@ static void usaOggetto(Giocatore *giocatore, Zona_mappa *zonaMappa)
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per tornare al menù principale: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1810,7 +1827,7 @@ static void giocaTurno()
     scanf("%c", &lIndex);
     while (lIndex != '\n')
     {
-      printf("Errore:\nCarattere errato\n");
+      printf("Errore:\nCarattere errato.\n");
       printf("\nPremi invio per continuare: ");
       freopen(NULL, "rb", stdin);
       scanf("%c", &lIndex);
@@ -1864,7 +1881,7 @@ void gioca()
       scanf("%c", &lIndex);
       while (lIndex != '\n')
       {
-        printf("Errore:\nCarattere errato\n");
+        printf("Errore:\nCarattere errato.\n");
         printf("\nPremi invio per tornare al menù principale: ");
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);
@@ -1884,7 +1901,7 @@ void gioca()
       scanf("%c", &lIndex);
       while (lIndex != '\n')
       {
-        printf("Errore:\nCarattere errato\n");
+        printf("Errore:\nCarattere errato.\n");
         printf("\nPremi invio per continuare: ");
         freopen(NULL, "rb", stdin);
         scanf("%c", &lIndex);

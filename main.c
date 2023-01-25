@@ -31,7 +31,7 @@ void menu()
   {
     printf("\n");
     freopen(NULL, "rb", stdin);
-    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù\n\n");
+    printf("Errore:\nIl numero inserito non corrisponde a nessuna funzione del menù.\n\n");
     printf("Inserisci: ");
     lControlloInt = scanf("%i", &gIndex);
   }
