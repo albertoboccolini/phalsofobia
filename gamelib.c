@@ -31,7 +31,6 @@ static int gMorte;                           // variabile che viene impostata ad
 static int gSale;                            // variabile che si aggiorna quando viene utilizzato l'oggetto sale
 static int gMatrice[5][4];                   // matrice che contiene tutti gli zaini dei giocatori precedenti
 static char gNomiGiocatoriPrecedenti[5][50]; // matrice che contiene tutti i nomi dei giocatori precedenti
-static int gTurnoIniziale[5];
 
 static void perso()
 {
@@ -599,6 +598,7 @@ static void menuMappa()
 {
   printf("\n");
   system("clear");
+  printf("\033[3;33m");
   printf("-------------------------\n");
   printf("| Creazione della mappa |\n");
   printf("-------------------------\n");
@@ -609,7 +609,7 @@ static void menuMappa()
   printf("2 - Cancella zona\n");
   printf("3 - Stampa mappa\n");
   printf("4 - Chiudi mappa\n");
-  printf("\nInserisci: ");
+  printf("\033[0m\033[1;39m\nInserisci: ");
   int lControlloInt = scanf("%d", &lIndex);
   while (lIndex < 1 || lIndex > 4 || !lControlloInt)
   {
@@ -797,15 +797,18 @@ void impostazioneGioco()
   switch (gDifficolta)
   {
   case 0:
-    printf("Difficoltà impostata a dilettante\n");
+    printf("\033[3;32mDifficoltà impostata a dilettante\n");
+    printf("\033[0m\033[1;39m");
     gProbabilitaApparizione = 35;
     break;
   case 1:
-    printf("Difficoltà impostata ad intermedio\n");
+    printf("\033[3;33mDifficoltà impostata ad intermedio\n");
+    printf("\033[0m\033[1;39m");
     gProbabilitaApparizione = 55;
     break;
   case 2:
-    printf("Difficoltà impostata ad incubo\n");
+    printf("\033[3;31mDifficoltà impostata ad incubo\n");
+    printf("\033[0m\033[1;39m");
     gProbabilitaApparizione = 75;
     break;
   }
@@ -816,7 +819,6 @@ void impostazioneGioco()
 
   for (int count1 = nGiocatori; count1 > 0; count1--)
   {
-    gTurnoIniziale[count1] = controllo[count1];
     gNGiocatori = nGiocatori; // copio il numero di giocatori nella variabile globale corrispondente
     /* copio la variabile globale gNGiocatori in gNGiocatoriPrecedenti,
     poiché nel corso della partita gNGiocatori potrebbe essere decrementata*/
@@ -850,16 +852,16 @@ void impostazioneGioco()
         convertiOggetto(lOggettoGenerato);
         printf(" nello zaino?\n");
         int scelta;
-        printf("0 = Sì, 1 = No\n");
-        printf("Inserisci: ");
+        printf("\033[3;32m0 = Sì, \033[3;31m1 = No\n");
+        printf("\033[0m\033[1;39mInserisci: ");
         freopen(NULL, "rb", stdin);
         lControlloInt = scanf("%d", &scelta);
         printf("\n");
         while (scelta < 0 || scelta > 1 || !lControlloInt)
         {
           printf("Carattere non valido\n");
-          printf("0 = Sì, 1 = No\n");
-          printf("Inserisci: ");
+          printf("\033[3;32m0 = Sì, \033[3;31m1 = No\n");
+          printf("\033[0m\033[1;39mInserisci: ");
           freopen(NULL, "rb", stdin);
           lControlloInt = scanf("%d", &scelta);
           printf("\n");
@@ -938,11 +940,10 @@ void imposta_gioco()
         gPGiocatori[count1] = realloc(gPGiocatori[count1], sizeof(Giocatore));         // re-alloco tutte le strutture giocatore
         gPGiocatori[count1] = gPGiocatoriPrecedenti[count1];                           // copio i campi dei giocatori precedenti nei giocatori attuali
         strcpy(gPGiocatori[count1]->nome_giocatore, gNomiGiocatoriPrecedenti[count1]); // copio il nome del giocatore precedente in quello attuale
-        if (gPGiocatori[count1] == gPGiocatori[gTurnoIniziale[count1]])
-          for (int count2 = 0; count2 < 4; count2++)
-          {
-            gPGiocatori[count1]->zaino[count2] = gMatrice[count1][count2]; // copio gli oggetti di ogni zaino contenuto nella matrice nello zaino di ogni giocatore
-          }
+        for (int count2 = 0; count2 < 4; count2++)
+        {
+          gPGiocatori[count1]->zaino[count2] = gMatrice[count1][count2]; // copio gli oggetti di ogni zaino contenuto nella matrice nello zaino di ogni giocatore
+        }
       }
       gioca();
       break;
@@ -960,6 +961,7 @@ static void vittoria()
   {
     printf("\n");
     system("clear");
+    printf("\033[1;32m");
     printf("   _   _      _         _       _          \n");
     printf("  | | | |__ _(_) __   _(_)_ ___| |_ ____   \n");
     printf("  | |_| | _` | | | | | | | '_  | __| _  |  \n");
@@ -973,6 +975,7 @@ static void vittoria()
   {
     printf("\n");
     system("clear");
+    printf("\033[1;32m");
     printf("  _____             _                _       _         \n");
     printf(" |  _  |__   ______| |_ ____  __   _(_)_ ___| |_ ____  \n");
     printf(" | |_| || | | | _  | __| _  | | | | | | '_  | __| _  | \n");
@@ -983,7 +986,7 @@ static void vittoria()
     printf("--------------------------------------------------------\n");
   }
   char lIndex;
-  printf("\nPremi invio per tornare al menù principale: ");
+  printf("\n\033[0m\033[1;39mPremi invio per tornare al menù principale: ");
   freopen(NULL, "rb", stdin);
   scanf("%c", &lIndex);
   while (lIndex != '\n')
@@ -1431,7 +1434,8 @@ static void raccogliProva(Giocatore *giocatore, Zona_mappa *zonaMappa)
         int num = rand() % 100 + 1; // genera un numero casuale tra 1 e 100
         if (num <= gProbabilitaApparizione)
         {
-          printf("Il fantasma è apparso!\n");
+          printf("\033[5;31mIl fantasma è apparso!\n");
+          printf("\033[0m\033[1;39m");
           sleep(1);
           gFantasma = 1;
           riduciSanita(zonaMappa); // riduco la sanità dei giocatori in quella zona
@@ -1752,6 +1756,7 @@ static void giocaTurno()
       {
         system("clear");
         freopen(NULL, "rb", stdin);
+        printf("\033[3;32m");
         printf("---------------------\n");
         printf("| Menù di selezione |\n");
         printf("---------------------\n");
@@ -1764,7 +1769,8 @@ static void giocaTurno()
         printf("6 - Raccogli oggetto\n");
         printf("7 - Usa oggetto\n");
         printf("8 - Passa il turno\n");
-        printf("\n%s cosa vuoi fare?: ", gPGiocatori[lTurni[count1]]->nome_giocatore);
+        printf("\033[1;39m");
+        printf("\n\033[0m\033[1;39m%s cosa vuoi fare?: ", gPGiocatori[lTurni[count1]]->nome_giocatore);
         int lControlloInt = scanf("%d", &lScelta);
         while (lScelta < 1 || lScelta > 8 || !lControlloInt)
         {
