@@ -1,23 +1,37 @@
-# PhalsoPhobia: Un gioco in C
-Template progetto finale Programmazione Procedurale con Laboratorio a.a. 2022/2023.
+# PhalsoPhobia: By Alberto Boccolini
 
-Aggiungere a questo README eventuali estensioni al progetto assegnato, e scelte progettuali da comunicare.
+## Getting Started
 
-Nome: Alberto
+1. Clone this repository.
 
-Cognome: Boccolini
+2. Navigate to this folder with terminal
 
-Matricola: 355727
+```bash
+   $ cd phalsofobia
+```
 
-Scelte progettuali:
-1) Aggiunta funzione impostazioneGioco() per dividere la sezione effettiva delle impostazioni dalla funzione imposta_gioco() che in caso di ripetizione della partita, mostra il menù comunicando all'utente che la partita era già stata impostata in precedenza e chiama le opportune funzioni: impostazioneGioco() per la modifica delle impostazioni, gioca() per l'avvio della partita.
-2) Aggiunta funzione convertiOggetto() che semplicemente prende in input l'intero assegnato agli oggetti e alle prove e ne stampa la stringa corrispettiva, questo per far fronte al problema dei tipi enum, per la quale non è possibile stampare gli oggetti o le prove, sostituendo %d con %s o %c.
-3) Aggiunta funzione convertiZona() che semplicemente prende in input l'intero assegnato alle zone ne stampa la stringa corrispettiva, questo per far fronte al problema dei tipi enum, per la quale non è possibile stampare le zone, sostituendo %d con %s o %c.
-4) Aggiunta funzione generaTurni() che prende in input un array di interi con tante posizioni quanti sono i giocatori ed il numero di essi. La funzione genera degli interi in base al numero di giocatori e controlla che non vi siano duplicati, per poi inserirli in ordine casuale nell'array che verrà restituito dopo la chiamata di funzione. Essa fa sì che ad ogni inizio del turno, venga generata una nuova successione di giocatori che non siano ripetuti ed evitare che in quel turno uno di essi venga chiamato a giocare per più di una volta.
-5) Aggiunta funzione giocaTurno() che funge semplicemente da menù turno per ogni giocatore. Essa inizialmente chiama la funzione generaTurni() ed in base all'ordine generato fa svolgere ad ogni giocatore il suo turno, dove esso potrà scegliere tra le varie opzioni e chiamare le corrispettive funzioni. Questa potrà essere lasciata solo in caso di vittoria o di perdita della partita ed ogni volta che tutti i giocatori completano il loro turno, re-imposta la variabile globale gSale, poiché nel caso in cui in quel turno sia stata impostata ad 1 utilizzando l'oggetto sale, nel caso di comparsa del fantasma i giocatori non riceveranno il decremento di sanità mentale e questa variabile viene aggiornata ad ogni fine turno.
-6) Aggiunta funzione riduciSanita() che innanzitutto controlla la variabile globale gSale, se essa è impostata ad 1, non decrementa la sanità di nessuno dei giocatori, poiché essa indica che in quel turno un giocatore ha utilizzato l'oggetto sale, ma in caso contrario decrementa la sanità di tutti i giocatori nella zona dove il fantasma è apparso. Inoltre la funzione effettua un controllo, poiché nel caso in cui dopo il decremento, il giocatore in questione raggiunga 0 di sanità mentale, verrà chiamata la funzione morte(), che si occuperà della morte di esso.
-7) Aggiunta funzione morte() che in caso in cui il giocatore morto avesse una prova, la ricolloca nella zona dove è morto il giocatore. Di seguito la funzione dà l'oggetto corrispondente alla prova raccolta dal giocatore morto ad un altro giocatore in maniera casuale, in modo da evitare che non sia più possibile completare la partita. Infine la funzione re-alloca la memoria utilizzata dal giocatore morto, imposta il puntatore a NULL, decrementa la variabile gNGiocatori ed interrompe tutto il turno, questo per far sì che venga generato un nuovo turno con solo i giocatori rimanenti ed evitare che il turno vada al giocatore morto. Se decrementando la variabile gNGiocatori essa diventa 0, allora la funzione morte() chiama la funzione perso().
-8) Aggiunta funzione perso() che stampa una semplice scritta per comunicare all'utente che: "la partita è persa!!" ed imposta la variabile globale gEsito a 2, che rappresenta appunto la perdita della partita. Premendo invio l'utente tornerà al menù iniziale, chiamato attraverso la funzione menu() dalla funzione main().
-9) Aggiunta funzione vittoria() che stampa una semplice scritta in base al numero di giocatori ancora in vita: = 1: "Hai vinto!!", > 1: "Avete vinto!!" ed imposta la variabile globale gEsito ad 1, che rappresenta appunto la vittoria della partita. Premendo invio l'utente tornerà al menù iniziale, chiamato attraverso la funzione menu() dalla funzione main().
-10) Quando l'utente utilizza la funzione tornaCaravan(), la funzione, oltre che spuntare le prove come completate e dare un altro oggetto per la ricerca delle prove, effettua un controllo. Nel caso in cui l'utente che si reca nel caravan, abbia con se un oggetto di cui la prova è già stata trovata, la funzione sostituisce quell'oggetto con uno di cui la prova è mancante. Questo controllo serve a velocizzare la partita nel caso in cui 2 delle 3 prove siano già state trovate, ed evitare che i giocatori aventi un'oggetto iniziale differente da quello necessario per ottere l'ultima, continuino ad andare in giro inutilmente senza poter raccogliere la prova rimanente.
-11) lControlloInt, utilizzato in diverse parti del programma, serve a controllare che l'utente nei vari menù, alla richiesta di un input intero, non inserisca un carattere.
+3. Compile main.c and gamelib.c with this command
+
+```bash
+   $ gcc -o phalsofobia main.c gamelib.c -std=c11 -Wall
+```
+
+4. Start the game and have fun
+
+```bash
+   $ ./phalsofobia
+```
+
+## Design choices
+
+1. We added the `impostazioneGioco()` function to separate the actual settings section from the `imposta_gioco()` function, which, in case of a repeat game, displays the menu by communicating to the user that the game had already been set the appropriate functions: `impostazioneGioco()` for modifying the settings, `gioca()` for starting the game.
+2. We added the `convertiOggetto()` function that takes an integer assigned to objects and challenges and prints the corresponding string, this to address the problem of enum types, for which it is not possible to print objects or challenges, replacing `%d` with `%s` or `%c`.
+3. We added the `convertiZona()` function that takes an integer assigned to zones and prints the corresponding string, this to address the problem of enum types, for which it is not possible to print zones, replacing `%d` with `%s` or `%c`.
+4. We added the `generaTurni()` function that takes an array of integers with as many positions as there are players and the number of them. The function generates integers based on the number of players and checks for duplicates, then inserts them in random order into the array that will be returned after the function call. This ensures that at the beginning of each turn, a new sequence of players is generated that are not repeated and prevent one of them from being called to play more than once in that turn.
+5. We added the `giocaTurno()` function that simply serves as a turn menu for each player. It initially calls the `generaTurni()` function and based on the generated order makes each player play their turn, where they can choose from various options and call the corresponding functions. This can only be left in case of victory or loss of the game and every time all players complete their turn, it re-sets the global variable `gSale`, as in the case where in that turn it is set to 1 using the salt object, in case of the ghost's appearance the players will not receive the decrement of mental health and this variable is updated at the end of each turn.
+6. We added the `riduciSanita()` function that first checks the global variable gSale, if it is set to 1, it does not decrement the health of any of the players, as it indicates that in that turn a player used the salt object, but otherwise it decrements the health of all players in the zone where the ghost appeared. In addition, the function performs a check, as if after the decrement, the player in question reaches 0 mental health, the `morte()` function will be called which will handle the loss of the player in question.
+7. We added the `morte()` function which, in case the dead player had a challenge, relocates it in the zone where the player died. Then the function gives the corresponding object to the challenge collected by the dead player to another player randomly, in order to avoid that it is no longer possible to complete the game. Finally, the function re-allocates the memory used by the dead player, sets the pointer to NULL, decrements the gNGiocatori variable and interrupts the whole turn, this to ensure that a new turn is generated with only the remaining players and avoid the turn going to the dead player. If decrementing the gNGiocatori variable makes it 0, then the `morte()` function calls the `perso()` function.
+8. We added the `perso()` function that prints a simple message to communicate to the user that: "the game is lost!!" and sets the global variable gEsito to 2, which represents the loss of the game. Pressing enter will return to the initial menu, called through `the menu()` function from the `main()` function.
+9. We added the `vittoria()` function that prints a simple message: "You won!!" and sets the global variable gEsito to 1, which represents the victory of the game. Pressing enter will return to the initial menu, called through the `menu()` function from the `main()` function.
+10. When the user uses the `tornaCaravan()` function, the function, in addition to checking the challenges as completed and giving another object for the challenge research, performs a check. In case the user who goes to the caravan has an object for which the challenge has already been found, the function replaces that object with one for which the challenge is missing. This check serves to speed up the game in case 2 out of 3 challenges have already been found, and to avoid players with an initial object different from the one necessary to obtain the last one, continue to go around uselessly without being able to collect the remaining challenge.
+11. `lControlloInt`, used in various parts of the program, serves to check that the user in the various menus, at the request of an integer input, does not enter a character.
