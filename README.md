@@ -4,19 +4,19 @@
 
 1. Clone this repository.
 
-2. Navigate to this folder with terminal
+2. Navigate to this folder with terminal.
 
 ```bash
    $ cd phalsofobia
 ```
 
-3. Compile main.c and gamelib.c with this command
+3. Compile main.c and gamelib.c with this command.
 
 ```bash
    $ gcc -o phalsofobia main.c gamelib.c -std=c11 -Wall
 ```
 
-4. Start the game and have fun
+4. Start the game and have fun.
 
 ```bash
    $ ./phalsofobia
@@ -24,7 +24,7 @@
 
 ## Play in no-UNIX systems with Docker
 
-Use the **[docker image](https://hub.docker.com/r/albertoboccolini/phalsofobia)** to run Phalsofobia
+Use the **[docker image](https://hub.docker.com/r/albertoboccolini/phalsofobia)** to run Phalsofobia.
 
 ```bash
    $ docker run -it albertoboccolini/phalsofobia:latest
