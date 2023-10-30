@@ -1,5 +1,5 @@
 # PhalsoPhobia: By Alberto Boccolini
-A game coded in c language for my university IT course where 1/4 players collaborate to find items before a ghost catch them.
+
 ## Getting Started
 
 1. Clone this repository.
