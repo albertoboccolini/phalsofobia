@@ -22,6 +22,28 @@
    $ ./phalsofobia
 ```
 
+## Dockerize this repository (to play in no-UNIX systems)
+
+1. Clone this repository.
+
+2. Navigate to this folder with terminal.
+
+```bash
+   $ cd phalsofobia
+```
+
+3. Build the image.
+
+```bash
+   $ docker build -t phalsofobia .
+```
+
+4. Spin a container using the image.
+
+```bash
+   $ docker run -it phalsofobia
+```
+
 ## Design choices
 
 1. We added the `impostazioneGioco()` function to separate the actual settings section from the `imposta_gioco()` function, which, in case of a repeat game, displays the menu by communicating to the user that the game had already been set the appropriate functions: `impostazioneGioco()` for modifying the settings, `gioca()` for starting the game.
