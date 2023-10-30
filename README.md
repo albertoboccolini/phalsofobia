@@ -27,7 +27,7 @@
 Use the **[docker image](https://hub.docker.com/r/albertoboccolini/phalsofobia)** to run Phalsofobia
 
 ```bash
-   $ docker run -it quellodeibeat/phalsofobia:latest
+   $ docker run -it albertoboccolini/phalsofobia:latest
 ```
 
 ## Push your personal Phalsofobia version
