@@ -1,5 +1,5 @@
 # PhalsoPhobia: By Alberto Boccolini
-
+A game coded in c language for my university IT course where 1/4 players collaborate to find items before a ghost catch them.
 ## Getting Started
 
 1. Clone this repository.
@@ -30,7 +30,7 @@ Use the **[docker image](https://hub.docker.com/r/albertoboccolini/phalsofobia)*
    $ docker run -it quellodeibeat/phalsofobia:latest
 ```
 
-## Pull your personal Phalsofobia version
+## Push your personal Phalsofobia version
 
 1. Clone this repository.
 
