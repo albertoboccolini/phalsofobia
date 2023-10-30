@@ -24,7 +24,7 @@
 
 ## Play in no-UNIX systems with Docker
 
-Use the **[docker image](https://hub.docker.com/repository/docker/albertoboccolini/phalsofobia/)** to run Phalsofobia
+Use the **[docker image](https://hub.docker.com/r/albertoboccolini/phalsofobia)** to run Phalsofobia
 
 ```bash
    $ docker run -it quellodeibeat/phalsofobia:latest
