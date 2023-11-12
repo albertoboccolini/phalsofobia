@@ -1,4 +1,8 @@
-# PhalsoPhobia: By Alberto Boccolini
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+A game coded in c language for my university IT course where 1/4 players collaborate to find items before a ghost catch them.
+
+![screen.png](./screen.png)
 
 ## Getting Started
 
@@ -52,7 +56,6 @@ Push the docker image just built to docker hub (replace x.y.z with your release 
    $ docker push albertoboccolini/phalsofobia:x.y.z
 ```
 
-
 ## Design choices
 
 1. Add the `impostazioneGioco()` function to separate the actual settings section from the `imposta_gioco()` function, which, in case of a repeat game, displays the menu by communicating to the user that the game had already been set the appropriate functions: `impostazioneGioco()` for modifying the settings, `gioca()` for starting the game.
@@ -67,4 +70,4 @@ Push the docker image just built to docker hub (replace x.y.z with your release 
 10. When the user uses the `tornaCaravan()` function, the function, in addition to checking the challenges as completed and giving another object for the challenge research, performs a check. In case the user who goes to the caravan has an object for which the challenge has already been found, the function replaces that object with one for which the challenge is missing. This check serves to speed up the game in case 2 out of 3 challenges have already been found, and to avoid players with an initial object different from the one necessary to obtain the last one, continue to go around uselessly without being able to collect the remaining challenge.
 11. `lControlloInt`, used in various parts of the program, serves to check that the user in the various menus, at the request of an integer input, does not enter a character.
 
-created by albertoboccolini.
+**created by [albertoboccolini](https://github.com/albertoboccolini).**
